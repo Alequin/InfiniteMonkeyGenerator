@@ -1,0 +1,2 @@
+alias run="elixir lib/infinite_monkeys.ex"
+alias tst="mix test"
