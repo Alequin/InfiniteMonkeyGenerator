@@ -1,10 +1,16 @@
 defmodule InfiniteMonkeys do
 
   def run do
+
+    text_length = 100
+    word_file = "./english-words/words_alpha.txt"
+    loop_count = 100
+
     IO.puts "Infinite Monkeys: running"
 
-    case File.read("./english-words/words_alpha.txt") do
-      {:ok, content} -> begin_search(100, String.split(content, "\n"), 3)
+    case File.read(word_file) do
+      {:ok, content} ->
+        begin_search(text_length, String.split(content, "\n"), loop_count)
       {:error, _reason} -> "File does not exist"
     end
 
@@ -15,11 +21,13 @@ defmodule InfiniteMonkeys do
     text = generate_text(text_length)
 
     matches = Enum.filter(words, fn(word) ->
+      word = String.trim(word)
       {:ok, regexr} = Regex.compile(word)
       count_matches(text, regexr) > 0
     end)
 
     matches = Enum.map(matches, fn(word) ->
+      word = String.trim(word)
       {:ok, regexr} = Regex.compile(word)
       {word, count_matches(text, regexr)}
     end)
@@ -73,7 +81,7 @@ defmodule InfiniteMonkeys do
 end
 
 # fun but uneccessary code
-# Reason: too slow to run --------------------------------------
+# Reason: too slow to run when variable "words" is very long --------------------------------------
 # def find_matches(text, words) do
 #   if(length(words) < 1) do
 #     []
