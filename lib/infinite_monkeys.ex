@@ -14,11 +14,18 @@ defmodule InfiniteMonkeys do
   def begin_search(words) do
     text = generate_text(10000)
 
-    for(word <- words) do
+    matches = Enum.map(words, fn(word) ->
+      case Regex.compile(word) do
+        {:ok, regexr} -> {word, count_matches(text, regexr)}
+        {:error, _reason} -> "regexr failed"
+      end
+    end)
 
+    for(match <- matches) do
+      {word, count} = match
+      IO.puts word
+      IO.puts count
     end
-
-
   end
 
   def generate_text(charCount) do
@@ -35,6 +42,10 @@ defmodule InfiniteMonkeys do
 
   def count_matches(text, pattern) do
     length(Regex.scan(pattern, text))
+  end
+
+  def generate_log_file_contents(text, matches) do
+
   end
 
 end
