@@ -52,7 +52,7 @@ defmodule InfiniteMonkeysTest do
       {"ham", 3}
     ]
 
-    expected = "baconeggseggshamhamham\nbacon: 1\neggs: 2\nham: 3\n"
+    expected = "baconeggseggshamhamham\n\nMATCHES\nbacon: 1\neggs: 2\nham: 3\n"
     result = InfiniteMonkeys.generate_log_file_contents(text, matches)
     assert expected == result
   end
@@ -67,7 +67,7 @@ defmodule InfiniteMonkeysTest do
       {"ham", 3},
     ]
 
-    expected = "baconeggseggshamhamham\nbacon: 1\neggs: 2\nham: 3\n"
+    expected = "baconeggseggshamhamham\n\nMATCHES\nbacon: 1\neggs: 2\nham: 3\n"
     result = InfiniteMonkeys.generate_log_file_contents(text, matches)
     assert expected == result
   end

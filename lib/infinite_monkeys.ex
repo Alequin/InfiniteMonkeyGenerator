@@ -52,7 +52,8 @@ defmodule InfiniteMonkeys do
     end
 
     Enum.join([
-      "#{text}\n",
+      "#{text}\n\n",
+      "MATCHES\n",
       matches_as_text
     ])
   end
