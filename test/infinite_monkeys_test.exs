@@ -19,4 +19,12 @@ defmodule InfiniteMonkeysTest do
     result = String.length(InfiniteMonkeys.generate_text(10000))
     assert expected == result
   end
+
+  test "can identify matches in text" do
+    expected = 3
+    result = InfiniteMonkeys.identify_matches("abcbdb", ~r/b/)
+    assert expected == result
+  end
+
+
 end

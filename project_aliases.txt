@@ -1,2 +1,2 @@
-alias run="elixir lib/infinite_monkeys.ex"
+alias run="iex -S mix"
 alias tst="mix test"

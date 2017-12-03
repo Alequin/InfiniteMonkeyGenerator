@@ -15,10 +15,10 @@ defmodule InfiniteMonkeys do
     text = generate_text(10000)
 
     for(word <- words) do
-      IO.puts word
+
     end
 
-    IO.puts text
+
   end
 
   def generate_text(charCount) do
@@ -31,6 +31,10 @@ defmodule InfiniteMonkeys do
   def generate_random_letter do
     letter_code = 96 + :rand.uniform(26)
     <<letter_code :: utf8>>
+  end
+
+  def identify_matches(text, pattern) do
+
   end
 
 end
