@@ -14,11 +14,14 @@ defmodule InfiniteMonkeys do
   def begin_search(text_length, words, run_count) do
     text = generate_text(text_length)
 
-    matches = Enum.map(words, fn(word) ->
-      case Regex.compile(word) do
-        {:ok, regexr} -> {word, count_matches(text, regexr)}
-        {:error, _reason} -> "regexr failed"
-      end
+    matches = Enum.filter(words, fn(word) ->
+      {:ok, regexr} = Regex.compile(word)
+      count_matches(text, regexr) > 0
+    end)
+
+    matches = Enum.map(matches, fn(word) ->
+      {:ok, regexr} = Regex.compile(word)
+      {word, count_matches(text, regexr)}
     end)
 
     if(length(matches) > 0) do
