@@ -20,11 +20,28 @@ defmodule InfiniteMonkeysTest do
     assert expected == result
   end
 
-  test "can identify matches in text" do
+  test "can identify matches in text - pattern: b" do
     expected = 3
     result = InfiniteMonkeys.identify_matches("abcbdb", ~r/b/)
     assert expected == result
   end
 
+  test "can identify matches in text - pattern: b$" do
+    expected = 1
+    result = InfiniteMonkeys.identify_matches("abcbdb", ~r/b$/)
+    assert expected == result
+  end
+
+  test "can identify matches in text - pattern: ice cream" do
+    text = Enum.join([
+      "It was a lovely day and everyone was out for a strole. ",
+      "They past a shop selling ice cream and could not resist have some. ",
+      "They stepped inside immediately"
+    ])
+
+    expected = 1
+    result = InfiniteMonkeys.identify_matches(text, ~r/ice cream/)
+    assert expected == result
+  end
 
 end
