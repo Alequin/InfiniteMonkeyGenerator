@@ -48,23 +48,6 @@ defmodule InfiniteMonkeys do
     <<letter_code :: utf8>>
   end
 
-  def find_matches(text, words) do
-    if(length(words) < 1) do
-      []
-    else
-      [ word | words ] = words
-
-      {:ok, regexr} = Regex.compile(word)
-      match_count = count_matches(text, regexr)
-
-      if(match_count > 0) do
-        [{word, match_count}] ++ InfiniteMonkeys.find_matches(text, words)
-      else
-        [] ++ InfiniteMonkeys.find_matches(text, words)
-      end
-    end
-  end
-
   def count_matches(text, pattern) do
     length(Regex.scan(pattern, text))
   end
@@ -88,3 +71,47 @@ defmodule InfiniteMonkeys do
   end
 
 end
+
+# fun but uneccessary code
+# Reason: too slow to run --------------------------------------
+# def find_matches(text, words) do
+#   if(length(words) < 1) do
+#     []
+#   else
+#     [ word | words ] = words
+#
+#     {:ok, regexr} = Regex.compile(word)
+#     match_count = count_matches(text, regexr)
+#
+#     if(match_count > 0) do
+#       [{word, match_count}] ++ InfiniteMonkeys.find_matches(text, words)
+#     else
+#       [] ++ InfiniteMonkeys.find_matches(text, words)
+#     end
+#   end
+# end
+# test "can find and return only words with matches" do
+#   text = "baconeggseggshamhamham"
+#   matches = [
+#     {"bacon", 1},
+#     {"eggs", 2},
+#     {"ham", 3},
+#   ]
+#
+#   expected = matches
+#   result = InfiniteMonkeys.find_matches(text, ["bacon", "eggs", "ham"])
+#   assert expected == result
+# end
+#
+# test "can find and return only words with matches - able to filter out noise" do
+#   text = "kdeeiebaconldieoeeggsieueieggsijeijoeijohamoi899hamonfnfehamiofijoei"
+#   matches = [
+#     {"bacon", 1},
+#     {"eggs", 2},
+#     {"ham", 3},
+#   ]
+#
+#   expected = matches
+#   result = InfiniteMonkeys.find_matches(text, ["bacon", "eggs", "ham"])
+#   assert expected == result
+# end
