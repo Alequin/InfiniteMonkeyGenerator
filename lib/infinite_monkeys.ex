@@ -44,7 +44,11 @@ defmodule InfiniteMonkeys do
 
     matches_as_text = for(match <- matches) do
       {word, count} = match
-      "#{word}: #{count}\n"
+      if(count > 0) do
+        "#{word}: #{count}\n"
+      else
+        ""
+      end
     end
 
     Enum.join([
