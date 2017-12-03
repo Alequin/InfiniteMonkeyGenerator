@@ -4,15 +4,15 @@ defmodule InfiniteMonkeys do
     IO.puts "Infinite Monkeys: running"
 
     case File.read("./english-words/words_alpha.txt") do
-      {:ok, content} -> begin_search(String.split(content, "\n"))
+      {:ok, content} -> begin_search(100, String.split(content, "\n"), 3)
       {:error, _reason} -> "File does not exist"
     end
 
     IO.puts "Infinite Monkeys: exit"
   end
 
-  def begin_search(words) do
-    text = generate_text(10000)
+  def begin_search(text_length, words, run_count) do
+    text = generate_text(text_length)
 
     matches = Enum.map(words, fn(word) ->
       case Regex.compile(word) do
@@ -21,6 +21,15 @@ defmodule InfiniteMonkeys do
       end
     end)
 
+    if(length(matches) > 0) do
+      IO.puts generate_log_file_contents(text, matches)
+    end
+
+    if(run_count > 0) do
+      run_count = run_count - 1
+      IO.puts "#{run_count} searches remaining"
+      InfiniteMonkeys.begin_search(text_length, words, run_count)
+    end
 
   end
 
@@ -34,6 +43,23 @@ defmodule InfiniteMonkeys do
   def generate_random_letter do
     letter_code = 96 + :rand.uniform(26)
     <<letter_code :: utf8>>
+  end
+
+  def find_matches(text, words) do
+    if(length(words) < 1) do
+      []
+    else
+      [ word | words ] = words
+
+      {:ok, regexr} = Regex.compile(word)
+      match_count = count_matches(text, regexr)
+
+      if(match_count > 0) do
+        [{word, match_count}] ++ InfiniteMonkeys.find_matches(text, words)
+      else
+        [] ++ InfiniteMonkeys.find_matches(text, words)
+      end
+    end
   end
 
   def count_matches(text, pattern) do

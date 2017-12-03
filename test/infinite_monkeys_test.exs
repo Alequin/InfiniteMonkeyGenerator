@@ -72,4 +72,30 @@ defmodule InfiniteMonkeysTest do
     assert expected == result
   end
 
+  test "can find and return only words with matches" do
+    text = "baconeggseggshamhamham"
+    matches = [
+      {"bacon", 1},
+      {"eggs", 2},
+      {"ham", 3},
+    ]
+
+    expected = matches
+    result = InfiniteMonkeys.find_matches(text, ["bacon", "eggs", "ham"])
+    assert expected == result
+  end
+
+  test "can find and return only words with matches - able to filter out noise" do
+    text = "kdeeiebaconldieoeeggsieueieggsijeijoeijohamoi899hamonfnfehamiofijoei"
+    matches = [
+      {"bacon", 1},
+      {"eggs", 2},
+      {"ham", 3},
+    ]
+
+    expected = matches
+    result = InfiniteMonkeys.find_matches(text, ["bacon", "eggs", "ham"])
+    assert expected == result
+  end
+
 end
