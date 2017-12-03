@@ -34,7 +34,7 @@ defmodule InfiniteMonkeys do
   end
 
   def identify_matches(text, pattern) do
-
+    length(Regex.scan(pattern, text))
   end
 
 end
