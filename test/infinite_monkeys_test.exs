@@ -22,13 +22,13 @@ defmodule InfiniteMonkeysTest do
 
   test "can identify matches in text - pattern: b" do
     expected = 3
-    result = InfiniteMonkeys.identify_matches("abcbdb", ~r/b/)
+    result = InfiniteMonkeys.count_matches("abcbdb", ~r/b/)
     assert expected == result
   end
 
   test "can identify matches in text - pattern: b$" do
     expected = 1
-    result = InfiniteMonkeys.identify_matches("abcbdb", ~r/b$/)
+    result = InfiniteMonkeys.count_matches("abcbdb", ~r/b$/)
     assert expected == result
   end
 
@@ -40,7 +40,7 @@ defmodule InfiniteMonkeysTest do
     ])
 
     expected = 1
-    result = InfiniteMonkeys.identify_matches(text, ~r/ice cream/)
+    result = InfiniteMonkeys.count_matches(text, ~r/ice cream/)
     assert expected == result
   end
 
