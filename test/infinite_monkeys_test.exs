@@ -44,4 +44,17 @@ defmodule InfiniteMonkeysTest do
     assert expected == result
   end
 
+  test "can create log file contents" do
+    text = "baconeggseggshamhamham"
+    matches = [
+      {"bacon", 1},
+      {"eggs", 2},
+      {"ham", 3}
+    ]
+
+    expected = "baconeggseggshamhamham\nbacon: 1\neggs: 2\nham: 3\n"
+    result = InfiniteMonkeys.generate_log_file_contents(text, matches)
+    assert expected == result
+  end
+
 end

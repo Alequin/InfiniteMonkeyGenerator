@@ -21,11 +21,7 @@ defmodule InfiniteMonkeys do
       end
     end)
 
-    for(match <- matches) do
-      {word, count} = match
-      IO.puts word
-      IO.puts count
-    end
+
   end
 
   def generate_text(charCount) do
@@ -46,6 +42,15 @@ defmodule InfiniteMonkeys do
 
   def generate_log_file_contents(text, matches) do
 
+    matches_as_text = for(match <- matches) do
+      {word, count} = match
+      "#{word}: #{count}\n"
+    end
+
+    Enum.join([
+      "#{text}\n",
+      matches_as_text
+    ])
   end
 
 end
